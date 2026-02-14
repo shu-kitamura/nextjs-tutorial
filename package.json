@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -18,6 +22,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "oxfmt": "^0.32.0",
+    "oxlint": "^1.47.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
