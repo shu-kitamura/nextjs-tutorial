@@ -36,5 +36,5 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": ["dist", ".next", "node_modules"]
+  "ignorePatterns": ["dist", ".next", "node_modules", "src/app/seed/*"]
 }
