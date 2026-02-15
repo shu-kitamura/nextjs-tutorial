@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Tutorial
 
-## Getting Started
+このリポジトリは [Next.js のダッシュボードアプリチュートリアル](https://nextjs.org/learn/dashboard-app)を実践したものです。
 
-First, run the development server:
+チュートリアルでは Vercel の PostgreSQL を使用しますが、このリポジトリではローカル環境の Docker で PostgreSQL を動かしています。
+
+## 前提条件
+
+- Node.js 18 以上
+- [pnpm](https://pnpm.io/)
+- [Docker](https://www.docker.com/) / Docker Compose
+
+## セットアップ
+
+### 1. リポジトリをクローン
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd nextjs-tutorial
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. 依存パッケージのインストール
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. PostgreSQL の起動
 
-## Learn More
+Docker Compose で PostgreSQL コンテナを起動します。
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker compose up -d
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+PostgreSQL は `localhost:5432` で起動し、以下の設定が使われます。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| 項目 | 値 |
+| --- | --- |
+| ユーザー | `postgres` |
+| パスワード | `postgres` |
+| データベース | `nextjs_tutorial` |
 
-## Deploy on Vercel
+### 4. 環境変数の設定
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`.env` ファイルを作成し、データベース接続情報などを設定してください。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+例
+```
+# ローカル Docker PostgreSQL
+POSTGRES_URL=postgres://postgres:postgres@localhost:5432/nextjs_tutorial
+```
+
+### 5. データベースのシード
+
+ブラウザで以下にアクセスし、初期データを投入します。
+
+```
+http://localhost:3000/seed
+```
+
+## 開発サーバーの起動
+
+```bash
+pnpm run dev
+```
+
+[http://localhost:3000](http://localhost:3000) でアプリが起動します。
+
+## その他のコマンド
+
+```bash
+pnpm run build    # プロダクションビルド
+pnpm run start    # プロダクションサーバー起動
+pnpm run lint     # Lint 実行
+pnpm run test     # テスト実行（今回はテストを実装していないが、側だけ用意した）
+```
