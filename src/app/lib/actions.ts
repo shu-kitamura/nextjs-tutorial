@@ -10,14 +10,14 @@ const sql = postgres(process.env.POSTGRES_URL!);
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
-    invalid_type_error: "Please select a customer",
+    error: "Please select a customer",
   }),
   amount: z.coerce.number().gt(
     0,
     { message: "Amount must be greater than zero" }
   ),
   status: z.enum(["pending", "paid"], {
-    invalid_type_error: "Please select a valid status",
+    error: "Please select a valid status",
   }),
   date: z.string(),
 });
@@ -44,7 +44,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      messages: "Missing Fields. Failed to create invoice.",
+      message: "Missing Fields. Failed to create invoice.",
     }
   }
 
@@ -81,7 +81,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      messages: "Missing Fields. Failed to update invoice.",
+      message: "Missing Fields. Failed to update invoice.",
     }
   }
 
