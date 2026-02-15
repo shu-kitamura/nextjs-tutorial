@@ -12,10 +12,7 @@ const FormSchema = z.object({
   customerId: z.string({
     error: "Please select a customer",
   }),
-  amount: z.coerce.number().gt(
-    0,
-    { message: "Amount must be greater than zero" }
-  ),
+  amount: z.coerce.number().gt(0, { message: "Amount must be greater than zero" }),
   status: z.enum(["pending", "paid"], {
     error: "Please select a valid status",
   }),
@@ -45,7 +42,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to create invoice.",
-    }
+    };
   }
 
   const { customerId, amount, status } = validatedFields.data;
@@ -64,7 +61,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     console.error(error);
     return {
       message: "Database error: Failed to create invoice.",
-    }
+    };
   }
 
   revalidatePath("/dashboard/invoices");
@@ -82,7 +79,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to update invoice.",
-    }
+    };
   }
 
   const { customerId, amount, status } = validatedFields.data;
@@ -99,7 +96,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     console.error("Error updating invoice:", error);
     return {
       message: "Database error: Failed to update invoice.",
-    }
+    };
   }
 
   revalidatePath("/dashboard/invoices");
